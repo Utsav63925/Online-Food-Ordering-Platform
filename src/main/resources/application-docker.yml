@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: lcwd_substringFoodies
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  app:
+    base-url: http://spring-web-service:8062
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+logging:
+  level:
+    root: INFO
+
+
+
+razorpay:
+  key_id: ${RAZORPAY_KEY_ID}
+  key_secret: ${RAZORPAY_KEY_SECRET}
+
+jwt:
+  secret: ${JWT_SECRET}
+
+restaurant:
+  file:
+    path: ${RESTAURANT_FILE_PATH}
+
+food:
+  file:
+    path: ${FOOD_FILE_PATH}
+
+server:
+  port: 8062
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+# This is a database service.
+  mysql_dbservice:
+    image: mysql:8.0
+    container_name: db-container
+    ports:
+      - "3307:3306"
+
+    env_file:
+      - .env
+
+    environment:
+      MYSQL_DATABASE: lcwd_food_delivery_app
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+#      All data stored in the path /var/lib/mysql will be safely stored in mysql-data volume.
+#      mysql-data is our computer folder and all the data from /var/lib/mysql path
+#      will be copied to that computer folder.
+      - mysql-data:/var/lib/mysql
+
+    networks:
+      - spring-boot-networks
+
+
+
+#  This is a springboot app service
+  spring-web-service:
+    image: rohanmujumdar1990/lcwd_substringfoodies
+    ports:
+      - "8063:8062"
+
+    container_name: substring-foodie-container
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./uploads:/app/uploads
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_dbservice:3306/lcwd_food_delivery_app
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+      SECURITY_USERNAME: ${SECURITY_USERNAME}
+      SECURITY_PASSWORD: ${SECURITY_PASSWORD}
+
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+
+      JWT_SECRET: ${JWT_SECRET}
+
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8062
+
+    networks:
+      - spring-boot-networks
+
+    depends_on:
+      - mysql_dbservice
+
+
+    # ---------------- MYSQL GUI (ADMINER) ----------------
+  adminer:
+    image: adminer
+    container_name: adminer-container
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql_dbservice
+    networks:
+      - spring-boot-networks
+
+volumes:
+  mysql-data:
+
+networks:
+  spring-boot-networks:
+
+
