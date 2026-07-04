@@ -96,5 +96,5 @@ public class FoodItems extends BaseAuditableEntity{
             throw new IllegalStateException("Discount cannot exceed price.");
         }
     }
-
+//
 }
