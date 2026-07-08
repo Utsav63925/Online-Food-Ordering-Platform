@@ -56,7 +56,7 @@ public class FoodCategoryController {
 
         return ResponseEntity.ok(foodCategoryService.patch(id, dto));
     }
-
+    //Delete Api
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         foodCategoryService.delete(id);
