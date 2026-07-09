@@ -61,7 +61,7 @@ public class CartController {
     }
 
     /**
-     * Clear the cart for a user
+     * 
      */
     @DeleteMapping("/{userId}/clear")
     public ResponseEntity<String> clearCart(@PathVariable String userId) {
