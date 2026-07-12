@@ -43,7 +43,7 @@ public class AuthController {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@Valid @RequestBody UserDto signUpUserDto) {
         UserDto user = userService.signUpUser(signUpUserDto);
-        return ResponseEntity.ok(user);  // returning the created user, not the request again
+        return ResponseEntity.ok(user);  // returning the created user, not the request again//
     }
 
 }
